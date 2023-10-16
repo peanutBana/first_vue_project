@@ -10,11 +10,19 @@
 </head>
 <body>
     <div id="app">
-        <button>컴포넌트 등록</button>
+        <h3>첫 번째 인스턴스 영역</h3>
+        <my-local-component></my-local-component>
+        <my-global-component></my-component>
+        <todo-footer></todo-footer>
+    </div>
+    <hr>
+    <div id="app2">
+        <h3>두 번째 인스턴스 영역</h3>
         <my-local-component></my-local-component>
         <my-global-component></my-component>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="/app.js"></script>
     <script>
 
     //[전역 컴포넌트]
@@ -22,39 +30,54 @@
         template: '<div>전역 컴포넌트가 등록되었습니다!</div>'
     });
 
-    //[life cycle]
-    // new Vue({
-    //     data: {
-    //         message: 'Hello Vue.js!'
-    //     },
-    //     beforeCreate: function(){
-    //         console.log("beforeCreate");
-    //     },
-    //     created: function(){
-    //         console.log("created");
-    //     },
-    //     mounted: function(){
-    //         console.log("mounted");
-    //         this.message = 'Hello Vue!';
-    //     },
-    //     updated: function(){
-    //         console.log("updated");
-    //     }
-    // });
+    Vue.component('todo-footer',{
+        template: '<div>{{ message }}</div>'
+    })
 
+    
     //[지역 컴포넌트]
     var cmp = {
         //컴포넌트 내용
         template: '<div>지역 컴포넌트가 등록되었습니다!</div>'
     };
-
+    
     new Vue({
         el: '#app',
         components:{
             'my-local-component': cmp
         }
     });
+    
+    new Vue({
+        el: '#app2'
+    });
 
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'This is a parent component'            
+        }
+    });
+
+//[life cycle]
+// new Vue({
+//     data: {
+//         message: 'Hello Vue.js!'
+//     },
+//     beforeCreate: function(){
+//         console.log("beforeCreate");
+//     },
+//     created: function(){
+//         console.log("created");
+//     },
+//     mounted: function(){
+//         console.log("mounted");
+//         this.message = 'Hello Vue!';
+//     },
+//     updated: function(){
+//         console.log("updated");
+//     }
+// });
     </script>
 </body> 
 </html>
